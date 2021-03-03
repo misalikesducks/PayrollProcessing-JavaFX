@@ -120,7 +120,7 @@
                             </Menu>
                           </menus>
                         </MenuBar>
-                        <Label layoutX="14.0" layoutY="14.0" text="Select command from the Menu">
+                        <Label layoutX="14.0" layoutY="14.0" text="Select command from the Menu.">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font></Label>
