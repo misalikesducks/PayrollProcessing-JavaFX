@@ -1,4 +1,4 @@
-package sample;
+package PayrollProcessing;
 
 public class Controller {
 }
