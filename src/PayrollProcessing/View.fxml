@@ -5,7 +5,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="556.0" prefWidth="641.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+            minWidth="-Infinity" prefHeight="556.0" prefWidth="641.0"
+            xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="PayrollProcessing.Controller">
    <top>
       <TabPane prefHeight="400.0" prefWidth="641.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
         <tabs>
@@ -32,8 +34,8 @@
                               <Label alignment="CENTER_RIGHT" prefHeight="46.0" prefWidth="140.0" text="Name " />
                               <Label alignment="CENTER_RIGHT" prefHeight="50.0" prefWidth="140.0" text="Department" GridPane.rowIndex="1" />
                               <Label alignment="CENTER_RIGHT" prefHeight="44.0" prefWidth="140.0" text="Date Hired" GridPane.rowIndex="2" />
-                              <DatePicker prefHeight="27.0" prefWidth="299.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                              <TextField alignment="CENTER" maxWidth="300.0" prefHeight="27.0" prefWidth="300.0" GridPane.columnIndex="1" />
+                              <DatePicker fx:id="dateHired" onAction="#get" prefHeight="27.0" prefWidth="299.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <TextField fx:id="empName" alignment="CENTER" maxWidth="300.0" onAction="#get" prefHeight="27.0" prefWidth="300.0" GridPane.columnIndex="1" />
                               <HBox alignment="CENTER_LEFT" prefHeight="10.0" prefWidth="456.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                  <children>
                                     <RadioButton mnemonicParsing="false" prefHeight="27.0" prefWidth="80.0" text="IT" />
@@ -57,9 +59,9 @@
                               <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
                                  <children>
                                     <Label prefHeight="24.0" prefWidth="90.0" text="Hours Worked" />
-                                    <TextField />
+                                    <TextField fx:id="hours" />
                                     <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="51.0" text="Rate" />
-                                    <TextField />
+                                    <TextField fx:id="partRate" />
                                  </children>
                               </HBox>
                               <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
@@ -71,7 +73,7 @@
                               </HBox>
                               <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="7">
                                  <children>
-                                    <Button alignment="CENTER" maxWidth="200.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="140.0" text="Add Employee">
+                                    <Button fx:id="addEmployee" alignment="CENTER" maxWidth="200.0" mnemonicParsing="false" onAction="#get" prefHeight="25.0" prefWidth="140.0" text="Add Employee">
                                        <HBox.margin>
                                           <Insets right="25.0" />
                                        </HBox.margin></Button>
@@ -132,6 +134,6 @@
       </TabPane>
    </top>
    <right>
-      <TextArea prefHeight="151.0" prefWidth="474.0" BorderPane.alignment="CENTER" />
+      <TextArea fx:id="show1" prefHeight="151.0" prefWidth="474.0" BorderPane.alignment="CENTER" />
    </right>
 </BorderPane>
