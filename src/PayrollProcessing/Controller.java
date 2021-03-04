@@ -11,14 +11,18 @@ import javafx.stage.Stage;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.scene.control.Alert.AlertType;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 
 public class Controller {
+   private Company database = new Company();
 
    @FXML
    private TextField empName, hours, partRate, salary;
 
    @FXML
    private DatePicker dateHired;
+
    @FXML
    private TextArea show1;
 

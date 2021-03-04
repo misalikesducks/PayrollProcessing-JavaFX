@@ -16,12 +16,10 @@ public class Main extends Application {
             primaryStage.setTitle("Payroll Processing");
             primaryStage.setScene(new Scene(root, 300, 275));
             primaryStage.show();
-        }
-        catch(Exception e) {
+        } catch(Exception e) {
             e.printStackTrace();
         }
     }
-
 
     public static void main(String[] args) {
         launch(args);

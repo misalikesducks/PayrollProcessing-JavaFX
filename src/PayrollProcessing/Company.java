@@ -130,27 +130,34 @@ public class Company {
    }
 
    /**
-    * Prints all Employee Objects in the Company database as is.
+    * Returns a String of all Employee Objects in the Company database as is.
     */
-   public void print(){ //print earning statements for all employees
+   public String print(){ //print earning statements for all employees
+      String allEmps = "";
+
       for(int i = 0; i < numEmployee; i++)
-         System.out.println(emplist[i].toString());
+         allEmps += emplist[i].toString() + "\n";
+
+      /*for(int i = 0; i < numEmployee; i++)
+         System.out.println(emplist[i].toString());*/
+
+      return allEmps;
    }
 
    /**
-    * Prints all Employee Objects in the Company database sorted by Department.
+    * Returns a String of all Employee Objects in the Company database sorted by Department.
     */
-   public void printByDepartment(){ //print earning statements by department
+   public String printByDepartment(){ //print earning statements by department
       quickSort(this.emplist, 0, this.numEmployee - 1, BY_DEPARTMENT);
-      print();
+      return print();
    }
 
    /**
-    * Prints the list of Employee Objects in the Company by dateHired.
+    * Returns a String of the list of Employee Objects in the Company by dateHired.
     */
-   public void printByDate(){ //print earning statements by date hired
+   public String printByDate(){ //print earning statements by date hired
       quickSort(this.emplist, 0, this.numEmployee - 1, BY_DATE);
-      print();
+      return print();
    }
 
    /**
