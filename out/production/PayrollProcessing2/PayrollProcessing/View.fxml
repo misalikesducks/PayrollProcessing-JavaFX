@@ -5,9 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-            minWidth="-Infinity" prefHeight="556.0" prefWidth="641.0"
-            xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="PayrollProcessing.Controller">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="556.0" prefWidth="641.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="PayrollProcessing.Controller">
    <top>
       <TabPane prefHeight="400.0" prefWidth="641.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
         <tabs>
@@ -34,26 +32,26 @@
                               <Label alignment="CENTER_RIGHT" prefHeight="46.0" prefWidth="140.0" text="Name " />
                               <Label alignment="CENTER_RIGHT" prefHeight="50.0" prefWidth="140.0" text="Department" GridPane.rowIndex="1" />
                               <Label alignment="CENTER_RIGHT" prefHeight="44.0" prefWidth="140.0" text="Date Hired" GridPane.rowIndex="2" />
-                              <DatePicker fx:id="dateHired" onAction="#get" prefHeight="27.0" prefWidth="299.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                              <TextField fx:id="empName" alignment="CENTER" maxWidth="300.0" onAction="#get" prefHeight="27.0" prefWidth="300.0" GridPane.columnIndex="1" />
+                              <DatePicker fx:id="dateHired" prefHeight="27.0" prefWidth="299.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <TextField fx:id="empName" alignment="CENTER" maxWidth="300.0" prefHeight="27.0" prefWidth="300.0" GridPane.columnIndex="1" />
                               <HBox alignment="CENTER_LEFT" prefHeight="10.0" prefWidth="456.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                  <children>
-                                    <RadioButton mnemonicParsing="false" prefHeight="27.0" prefWidth="80.0" text="IT" />
-                                    <RadioButton mnemonicParsing="false" prefHeight="27.0" prefWidth="80.0" text="CS" />
-                                    <RadioButton mnemonicParsing="false" prefHeight="27.0" prefWidth="80.0" text="ECE" />
+                                    <RadioButton fx:id="itDepartment" mnemonicParsing="false" prefHeight="27.0" prefWidth="80.0" text="IT" />
+                                    <RadioButton fx:id="csDepartment" mnemonicParsing="false" prefHeight="27.0" prefWidth="80.0" text="CS" />
+                                    <RadioButton fx:id="eceDepartment" mnemonicParsing="false" prefHeight="27.0" prefWidth="80.0" text="ECE" />
                                  </children>
                               </HBox>
                               <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                                  <children>
-                                    <RadioButton mnemonicParsing="false" prefHeight="31.0" prefWidth="120.0" text="Full Time" />
-                                    <RadioButton mnemonicParsing="false" prefHeight="31.0" prefWidth="120.0" text="Part Time" />
-                                    <RadioButton mnemonicParsing="false" prefHeight="31.0" prefWidth="120.0" text="Management" />
+                                    <RadioButton fx:id="fullTime" mnemonicParsing="false" prefHeight="31.0" prefWidth="120.0" text="Full Time" />
+                                    <RadioButton fx:id="partTime" mnemonicParsing="false" prefHeight="31.0" prefWidth="120.0" text="Part Time" />
+                                    <RadioButton fx:id="management" mnemonicParsing="false" prefHeight="31.0" prefWidth="120.0" text="Management" />
                                  </children>
                               </HBox>
                               <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
                                  <children>
                                     <Label prefHeight="23.0" prefWidth="84.0" text="Annual Salary" />
-                                    <TextField prefHeight="27.0" prefWidth="218.0" />
+                                    <TextField fx:id="salary" prefHeight="27.0" prefWidth="218.0" />
                                  </children>
                               </HBox>
                               <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
@@ -66,14 +64,14 @@
                               </HBox>
                               <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
                                  <children>
-                                    <RadioButton mnemonicParsing="false" prefWidth="120.0" text="Manager" />
-                                    <RadioButton mnemonicParsing="false" prefWidth="150.0" text="Department Head" />
-                                    <RadioButton mnemonicParsing="false" prefWidth="120.0" text="Director" />
+                                    <RadioButton fx:id="manager" mnemonicParsing="false" prefWidth="120.0" text="Manager" />
+                                    <RadioButton fx:id="departmentHead" mnemonicParsing="false" prefWidth="150.0" text="Department Head" />
+                                    <RadioButton fx:id="director" mnemonicParsing="false" prefWidth="120.0" text="Director" />
                                  </children>
                               </HBox>
                               <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="7">
                                  <children>
-                                    <Button fx:id="addEmployee" alignment="CENTER" maxWidth="200.0" mnemonicParsing="false" onAction="#get" prefHeight="25.0" prefWidth="140.0" text="Add Employee">
+                                    <Button fx:id="addEmployeeButton" alignment="CENTER" maxWidth="200.0" mnemonicParsing="false" onAction="#add" prefHeight="25.0" prefWidth="140.0" text="Add Employee">
                                        <HBox.margin>
                                           <Insets right="25.0" />
                                        </HBox.margin></Button>
