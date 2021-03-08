@@ -16,9 +16,12 @@ import java.io.PrintWriter;
 
 public class Controller {
    private Company database = new Company();
+   public static final int MANAGER = 1;
+   public static final int DEPARTMENT_HEAD = 2;
+   public static final int DIRECTOR = 3;
 
    @FXML
-   private TextField empName, hours, partRate, salary;
+   private TextField empName, hours, partRate, salary, hours;
 
    @FXML
    private DatePicker dateHired;
@@ -29,35 +32,31 @@ public class Controller {
    @FXML
    private RadioButton itDepartment, csDepartment, eceDepartment, fullTime, partTime, management,
             departmentHead, manager, director;
-
+   @FXML
+   private ToggleGroup department, managementType, empType;
    @FXML
    /**
     * Event Handler for the add Employee button
     * @param event
     */
    void add(ActionEvent event) {
-      ToggleGroup departments = new ToggleGroup();
-      itDepartment.setToggleGroup(departments);
-      csDepartment.setToggleGroup(departments);
-      eceDepartment.setToggleGroup(departments);
 
-      ToggleGroup empType = new ToggleGroup();
-      fullTime.setToggleGroup(empType);
-      partTime.setToggleGroup(empType);
-      management.setToggleGroup(empType);
 
-      ToggleGroup managementType = new ToggleGroup();
-      departmentHead.setToggleGroup(managementType);
-      manager.setToggleGroup(managementType);
-      director.setToggleGroup(managementType);
-
-      //Date tempDate = new Date(dateHired.getValue().toString());
-      //NEED TO CHECK FOR VALID DATE ERROR CONDITION !!!!!!!
-      String date = dateHired.getValue().toString();
-      Date tempDate = new Date(date.substring(5,7) + "/" + date.substring(8) + "/" + date.substring(0, 4));
-      RadioButton selectedDepartment = (RadioButton) departments.getSelectedToggle();
-      Profile tempProf = new Profile(empName.getText(), selectedDepartment.getText(), tempDate);
+      Profile prof = createProfile();
       Employee tempEmp;
+      String selectedEmp = ((RadioButton) empType.getSelectedToggle()).getText();
+      switch(selectedEmp) {
+         case "Full Time":
+            partRate.setEditable(false);
+            hours.setEditable(false);
+            managementType.getToggles().forEach(toggle -> {
+               RadioButton manageTemp = (RadioButton) toggle;
+               manageTemp.setDisable(true);
+            });
+      }
+
+
+
       // DISABLE SUTPID STUFF !!!! ! ! ! ! ! ! ! !  ! ! ! ! ! ! !  ! ! !
       //NEED TO CHECK FOR PROPER SALARY INPUT (NUMBER EXCEPTION) !!!!!!
       RadioButton selectedEmpType = (RadioButton) empType.getSelectedToggle();
@@ -82,8 +81,21 @@ public class Controller {
       //ADD RETURN FALSE ERROR CHECK !!!!!
       database.add(tempEmp);
    }
-   Employee inputting() {
-      return null;
+   Profile createProfile() {
+      String date = dateHired.getValue().toString();
+      Date tempDate = new Date(date.substring(5,7) + "/" + date.substring(8) + "/" + date.substring(0, 4));
+      Profile tempProf = null;
+      try{
+         if(tempDate.isValid()) {
+            tempProf = new Profile(empName.getText(), ((RadioButton) department.getSelectedToggle()).getText(),
+                              tempDate);
+         }else{
+            throw new IllegalArgumentException();
+         }
+      }catch(IllegalArgumentException e) {
+         show1.appendText("Date hired is invalid.");
+      }
+      return tempProf;
    }
 
    @FXML
