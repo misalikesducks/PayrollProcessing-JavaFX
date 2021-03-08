@@ -16,12 +16,10 @@ import java.io.PrintWriter;
 
 public class Controller {
    private Company database = new Company();
-   public static final int MANAGER = 1;
-   public static final int DEPARTMENT_HEAD = 2;
-   public static final int DIRECTOR = 3;
 
+   public static final int EMPTY = 0;
    @FXML
-   private TextField empName, hours, partRate, salary, hours;
+   private TextField empName, hours, partRate, salary;
 
    @FXML
    private DatePicker dateHired;
@@ -41,59 +39,87 @@ public class Controller {
     */
    void add(ActionEvent event) {
 
-
+      show1.clear();
       Profile prof = createProfile();
-      Employee tempEmp;
-      String selectedEmp = ((RadioButton) empType.getSelectedToggle()).getText();
+      Employee tempEmp = null;
+      String selectedEmp = null;
+      try{
+         if(empType.getSelectedToggle() != null)
+            selectedEmp= ((RadioButton) empType.getSelectedToggle()).getText();
+         else
+            throw new Exception();
+      }catch(Exception e){
+         show1.appendText("Invalid Select Employee Type");
+      }
+
       switch(selectedEmp) {
          case "Full Time":
+         case "Management":
             partRate.setEditable(false);
             hours.setEditable(false);
-            managementType.getToggles().forEach(toggle -> {
-               RadioButton manageTemp = (RadioButton) toggle;
-               manageTemp.setDisable(true);
-            });
+            double annualSalary = EMPTY;
+            try{
+               annualSalary = Double.parseDouble(salary.getText());
+            }catch(Exception e){
+               show1.appendText("Invalid Salary");
+            }
+            if(selectedEmp.equals("Full Time")) {
+               managementType.getToggles().forEach(toggle -> {
+                  RadioButton manageTemp = (RadioButton) toggle;
+                  manageTemp.setDisable(true);
+               });
+               tempEmp = new Fulltime(prof, annualSalary);
+               break;
+            }
+            int manageCode = EMPTY;
+            if(((RadioButton)managementType.getSelectedToggle()).getText().equals("Director"))
+               manageCode = Management.DIRECTOR;
+            else if(((RadioButton)managementType.getSelectedToggle()).getText().equals("Department Head"))
+               manageCode = Management.DEPARTMENT_HEAD;
+            else
+               manageCode = Management.MANAGER;
+            tempEmp = new Management(prof, annualSalary, manageCode);
+            break;
+         case "Part Time":
+            salary.setEditable(false);
+            double partTimeRate = EMPTY;
+            try{
+               partTimeRate = Double.parseDouble(hours.getText());
+            }catch(Exception e){
+               show1.appendText(partTimeRate + "Invalid Hourly Rate for Partime Employee");
+            }
+            tempEmp = new Parttime(prof, partTimeRate, EMPTY);
+         default:
+            break;
       }
-
-
-
-      // DISABLE SUTPID STUFF !!!! ! ! ! ! ! ! ! !  ! ! ! ! ! ! !  ! ! !
-      //NEED TO CHECK FOR PROPER SALARY INPUT (NUMBER EXCEPTION) !!!!!!
-      RadioButton selectedEmpType = (RadioButton) empType.getSelectedToggle();
-      if(selectedEmpType.getText().equals("Fill Time")) {
-         tempEmp = new Fulltime(tempProf, Double.parseDouble(salary.getText()));
-      } else if(selectedEmpType.getText().equals("Management")) {
-         RadioButton selectedManagement = (RadioButton) managementType.getSelectedToggle();
-         int manageType = 0;
-         //FIX MAGIC NUMBERS SDJFSDF !!!!!
-         //ERROR CATCH !!!!!!
-         if(selectedManagement.getText().equals("Department Head"))
-            manageType = 2;
-         else if(selectedManagement.getText().equals("Manager"))
-            manageType = 1;
+      try{
+         if(!database.add(tempEmp))
+            throw new Exception();
          else
-            manageType = 3;
-         tempEmp = new Management(tempProf, Double.parseDouble(salary.getText()), manageType);
-      } else {
-         tempEmp = new Parttime(tempProf, Double.parseDouble(partRate.getText()), 0);
+            show1.appendText("Added Employee Successfully");
+      }catch(Exception e){
+         show1.appendText("Could not add Employee, Employee exists or invalid inputs");
       }
-      //show1.appendText(tempEmp.toString());
-      //ADD RETURN FALSE ERROR CHECK !!!!!
-      database.add(tempEmp);
    }
+
+   /**
+    *
+    * @return
+    */
    Profile createProfile() {
       String date = dateHired.getValue().toString();
       Date tempDate = new Date(date.substring(5,7) + "/" + date.substring(8) + "/" + date.substring(0, 4));
       Profile tempProf = null;
+      String name = empName.getText().trim().toUpperCase();
       try{
-         if(tempDate.isValid()) {
+         if(tempDate.isValid() && name.length() != EMPTY) {
             tempProf = new Profile(empName.getText(), ((RadioButton) department.getSelectedToggle()).getText(),
                               tempDate);
          }else{
             throw new IllegalArgumentException();
          }
       }catch(IllegalArgumentException e) {
-         show1.appendText("Date hired is invalid.");
+         show1.appendText("Date hired or Name is invalid");
       }
       return tempProf;
    }

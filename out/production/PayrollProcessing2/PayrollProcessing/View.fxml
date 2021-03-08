@@ -1,11 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="556.0" prefWidth="641.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="PayrollProcessing.Controller">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="556.0" prefWidth="641.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="PayrollProcessing.Controller">
    <top>
       <TabPane prefHeight="400.0" prefWidth="641.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
         <tabs>
@@ -36,16 +52,22 @@
                               <TextField fx:id="empName" alignment="CENTER" maxWidth="300.0" prefHeight="27.0" prefWidth="300.0" GridPane.columnIndex="1" />
                               <HBox alignment="CENTER_LEFT" prefHeight="10.0" prefWidth="456.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                  <children>
-                                    <RadioButton fx:id="itDepartment" mnemonicParsing="false" prefHeight="27.0" prefWidth="80.0" text="IT" />
-                                    <RadioButton fx:id="csDepartment" mnemonicParsing="false" prefHeight="27.0" prefWidth="80.0" text="CS" />
-                                    <RadioButton fx:id="eceDepartment" mnemonicParsing="false" prefHeight="27.0" prefWidth="80.0" text="ECE" />
+                                    <RadioButton fx:id="itDepartment" mnemonicParsing="false" prefHeight="27.0" prefWidth="80.0" text="IT">
+                                       <toggleGroup>
+                                          <ToggleGroup fx:id="department" />
+                                       </toggleGroup></RadioButton>
+                                    <RadioButton fx:id="csDepartment" mnemonicParsing="false" prefHeight="27.0" prefWidth="80.0" text="CS" toggleGroup="$department" />
+                                    <RadioButton fx:id="eceDepartment" mnemonicParsing="false" prefHeight="27.0" prefWidth="80.0" text="ECE" toggleGroup="$department" />
                                  </children>
                               </HBox>
                               <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                                  <children>
-                                    <RadioButton fx:id="fullTime" mnemonicParsing="false" prefHeight="31.0" prefWidth="120.0" text="Full Time" />
-                                    <RadioButton fx:id="partTime" mnemonicParsing="false" prefHeight="31.0" prefWidth="120.0" text="Part Time" />
-                                    <RadioButton fx:id="management" mnemonicParsing="false" prefHeight="31.0" prefWidth="120.0" text="Management" />
+                                    <RadioButton fx:id="fullTime" mnemonicParsing="false" prefHeight="31.0" prefWidth="120.0" text="Full Time">
+                                       <toggleGroup>
+                                          <ToggleGroup fx:id="empType" />
+                                       </toggleGroup></RadioButton>
+                                    <RadioButton fx:id="partTime" mnemonicParsing="false" prefHeight="31.0" prefWidth="120.0" text="Part Time" toggleGroup="$empType" />
+                                    <RadioButton fx:id="management" mnemonicParsing="false" prefHeight="31.0" prefWidth="120.0" text="Management" toggleGroup="$empType" />
                                  </children>
                               </HBox>
                               <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
@@ -64,9 +86,12 @@
                               </HBox>
                               <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
                                  <children>
-                                    <RadioButton fx:id="manager" mnemonicParsing="false" prefWidth="120.0" text="Manager" />
-                                    <RadioButton fx:id="departmentHead" mnemonicParsing="false" prefWidth="150.0" text="Department Head" />
-                                    <RadioButton fx:id="director" mnemonicParsing="false" prefWidth="120.0" text="Director" />
+                                    <RadioButton fx:id="manager" mnemonicParsing="false" prefWidth="120.0" text="Manager">
+                                       <toggleGroup>
+                                          <ToggleGroup fx:id="managementType" />
+                                       </toggleGroup></RadioButton>
+                                    <RadioButton fx:id="departmentHead" mnemonicParsing="false" prefWidth="150.0" text="Department Head" toggleGroup="$managementType" />
+                                    <RadioButton fx:id="director" mnemonicParsing="false" prefWidth="120.0" text="Director" toggleGroup="$managementType" />
                                  </children>
                               </HBox>
                               <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="7">
