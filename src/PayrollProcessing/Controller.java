@@ -161,6 +161,7 @@ public class Controller {
       database.print();
    }
 
+   @FXML
    void remove(ActionEvent event){
       Profile tempProfile = createProfile();
       Employee tempEmp = new Employee(tempProfile);
@@ -179,6 +180,7 @@ public class Controller {
       }
    }
 
+   @FXML
    void setHours(ActionEvent event){
       try{
          if(Integer.parseInt(hours.getText()) < 0 || Integer.parseInt(hours.getText()) > Parttime.ACTUAL_MAX_HOURS)
