@@ -1,27 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.DatePicker?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.RadioButton?>
-<?import javafx.scene.control.Tab?>
-<?import javafx.scene.control.TabPane?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.ToggleGroup?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.text.Font?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="556.0" prefWidth="641.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="PayrollProcessing.Controller">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="556.0" prefWidth="641.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="PayrollProcessing.Controller">
    <top>
       <TabPane prefHeight="400.0" prefWidth="641.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
         <tabs>
@@ -29,7 +13,7 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="402.0" prefWidth="641.0">
                      <children>
-                        <GridPane layoutX="18.0" layoutY="7.0" prefHeight="353.0" prefWidth="606.0">
+                        <GridPane fx:id="pane" layoutX="18.0" layoutY="7.0" prefHeight="353.0" prefWidth="606.0">
                           <columnConstraints>
                             <ColumnConstraints hgrow="SOMETIMES" maxWidth="297.0" minWidth="10.0" prefWidth="150.0" />
                             <ColumnConstraints hgrow="SOMETIMES" maxWidth="478.0" minWidth="10.0" prefWidth="456.0" />
@@ -62,12 +46,12 @@
                               </HBox>
                               <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                                  <children>
-                                    <RadioButton fx:id="fullTime" mnemonicParsing="false" prefHeight="31.0" prefWidth="120.0" text="Full Time">
+                                    <RadioButton fx:id="fullTime" mnemonicParsing="false" onAction="#fullTimeClicked" prefHeight="31.0" prefWidth="120.0" text="Full Time">
                                        <toggleGroup>
                                           <ToggleGroup fx:id="empType" />
                                        </toggleGroup></RadioButton>
-                                    <RadioButton fx:id="partTime" mnemonicParsing="false" prefHeight="31.0" prefWidth="120.0" text="Part Time" toggleGroup="$empType" />
-                                    <RadioButton fx:id="management" mnemonicParsing="false" prefHeight="31.0" prefWidth="120.0" text="Management" toggleGroup="$empType" />
+                                    <RadioButton fx:id="partTime" mnemonicParsing="false" onAction="#partTimeClicked" prefHeight="31.0" prefWidth="120.0" text="Part Time" toggleGroup="$empType" />
+                                    <RadioButton fx:id="management" mnemonicParsing="false" onAction="#manageClicked" prefHeight="31.0" prefWidth="120.0" text="Management" toggleGroup="$empType" />
                                  </children>
                               </HBox>
                               <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
@@ -100,17 +84,17 @@
                                        <HBox.margin>
                                           <Insets right="25.0" />
                                        </HBox.margin></Button>
-                                    <Button alignment="CENTER" maxWidth="200.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="140.0" text="Remove Employee">
+                                    <Button fx:id="removeButton" alignment="CENTER" maxWidth="200.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="140.0" text="Remove Employee">
                                        <HBox.margin>
                                           <Insets right="25.0" />
                                        </HBox.margin></Button>
-                                    <Button alignment="CENTER" maxWidth="200.0" mnemonicParsing="false" prefWidth="140.0" text="Set Hours">
+                                    <Button fx:id="setHoursButton" alignment="CENTER" maxWidth="200.0" mnemonicParsing="false" prefWidth="140.0" text="Set Hours">
                                        <HBox.margin>
                                           <Insets right="25.0" />
                                        </HBox.margin></Button>
                                  </children>
                               </HBox>
-                              <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="70.0" text="Clear" translateX="40.0" GridPane.rowIndex="7" />
+                              <Button fx:id="clearButton" mnemonicParsing="false" onAction="#clear" prefHeight="25.0" prefWidth="70.0" text="Clear" translateX="40.0" GridPane.rowIndex="7" />
                            </children>
                         </GridPane>
                      </children>

@@ -50,8 +50,28 @@ public class Controller {
       });
    }
    @FXML
+   /**
+    * Clear the tab pane
+    */
    void clear(ActionEvent event){
-      pane.getChildren().clear();
+      empName.clear();
+      hours.clear();
+      partRate.clear();
+      salary.clear();
+      dateHired.getEditor().clear();
+
+      managementType.getToggles().forEach(toggle -> {
+         RadioButton tempButton = (RadioButton) toggle;
+         tempButton.setSelected(false);
+      });
+      department.getToggles().forEach(toggle -> {
+         RadioButton tempButton = (RadioButton) toggle;
+         tempButton.setSelected(false);
+      });
+      empType.getToggles().forEach(toggle -> {
+         RadioButton tempButton = (RadioButton) toggle;
+         tempButton.setSelected(false);
+      });
    }
    @FXML
    void partTimeClicked(ActionEvent event) {
@@ -83,6 +103,8 @@ public class Controller {
    void add(ActionEvent event) {
       show1.clear();
       Profile prof = createProfile();
+      if(prof == null)
+         return;
       Employee tempEmp = null;
       String selectedEmp = null;
       try{
@@ -102,6 +124,7 @@ public class Controller {
                annualSalary = Double.parseDouble(salary.getText());
             }catch(Exception e){
                show1.appendText("Invalid Salary");
+               return;
             }
             if(selectedEmp.equals("Full Time")) {
                tempEmp = new Fulltime(prof, annualSalary);
@@ -122,6 +145,7 @@ public class Controller {
                partTimeRate = Double.parseDouble(partRate.getText());
             }catch(Exception e){
                show1.appendText(partTimeRate + "Invalid Hourly Rate for Partime Employee");
+               return;
             }
             tempEmp = new Parttime(prof, partTimeRate, EMPTY);
          default:
@@ -134,11 +158,21 @@ public class Controller {
             show1.appendText("Added Employee Successfully");
       }catch(Exception e){
          show1.appendText("Could not add Employee, Employee exists or invalid inputs");
+         return;
       }
+      database.print();
    }
 
    void remove(ActionEvent event){
+      Profile tempProfile = createProfile();
+      try{
+         if(tempProfile != null){
 
+         }else
+            throw new Exception();
+      }catch(Exception e){
+         show1.appendText("Invalid Inputs");
+      }
    }
    /**
     *
