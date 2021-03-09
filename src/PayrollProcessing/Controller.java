@@ -6,10 +6,13 @@ import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.scene.control.Alert.AlertType;
+
+import javax.swing.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -33,12 +36,51 @@ public class Controller {
    @FXML
    private ToggleGroup department, managementType, empType;
    @FXML
+   private GridPane pane;
+   private int manageRole = EMPTY;
+
+   @FXML
+   void fullTimeClicked(ActionEvent event) {
+      hours.setDisable(true);
+      partRate.setDisable(true);
+      salary.setDisable(false);
+      managementType.getToggles().forEach(toggle -> {
+         RadioButton tempButton = (RadioButton) toggle;
+         tempButton.setDisable(true);
+      });
+   }
+   @FXML
+   void clear(ActionEvent event){
+      pane.getChildren().clear();
+   }
+   @FXML
+   void partTimeClicked(ActionEvent event) {
+      managementType.getToggles().forEach(toggle -> {
+         RadioButton tempButton = (RadioButton) toggle;
+         tempButton.setDisable(true);
+      });
+      hours.setDisable(false);
+      partRate.setDisable(false);
+      salary.setDisable(true);
+   }
+
+   @FXML
+   void manageClicked(ActionEvent event){
+      hours.setDisable(true);
+      partRate.setDisable(true);
+      salary.setDisable(false);
+      managementType.getToggles().forEach(toggle -> {
+         RadioButton tempButton = (RadioButton) toggle;
+         tempButton.setDisable(false);
+      });
+   }
+
+   @FXML
    /**
     * Event Handler for the add Employee button
     * @param event
     */
    void add(ActionEvent event) {
-
       show1.clear();
       Profile prof = createProfile();
       Employee tempEmp = null;
@@ -55,8 +97,6 @@ public class Controller {
       switch(selectedEmp) {
          case "Full Time":
          case "Management":
-            partRate.setEditable(false);
-            hours.setEditable(false);
             double annualSalary = EMPTY;
             try{
                annualSalary = Double.parseDouble(salary.getText());
@@ -64,10 +104,6 @@ public class Controller {
                show1.appendText("Invalid Salary");
             }
             if(selectedEmp.equals("Full Time")) {
-               managementType.getToggles().forEach(toggle -> {
-                  RadioButton manageTemp = (RadioButton) toggle;
-                  manageTemp.setDisable(true);
-               });
                tempEmp = new Fulltime(prof, annualSalary);
                break;
             }
@@ -81,10 +117,9 @@ public class Controller {
             tempEmp = new Management(prof, annualSalary, manageCode);
             break;
          case "Part Time":
-            salary.setEditable(false);
             double partTimeRate = EMPTY;
             try{
-               partTimeRate = Double.parseDouble(hours.getText());
+               partTimeRate = Double.parseDouble(partRate.getText());
             }catch(Exception e){
                show1.appendText(partTimeRate + "Invalid Hourly Rate for Partime Employee");
             }
@@ -102,6 +137,9 @@ public class Controller {
       }
    }
 
+   void remove(ActionEvent event){
+
+   }
    /**
     *
     * @return

@@ -29,7 +29,7 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="402.0" prefWidth="641.0">
                      <children>
-                        <GridPane layoutX="18.0" layoutY="7.0" prefHeight="353.0" prefWidth="606.0">
+                        <GridPane fx:id="pane" layoutX="18.0" layoutY="7.0" prefHeight="353.0" prefWidth="606.0">
                           <columnConstraints>
                             <ColumnConstraints hgrow="SOMETIMES" maxWidth="297.0" minWidth="10.0" prefWidth="150.0" />
                             <ColumnConstraints hgrow="SOMETIMES" maxWidth="478.0" minWidth="10.0" prefWidth="456.0" />
@@ -62,12 +62,12 @@
                               </HBox>
                               <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                                  <children>
-                                    <RadioButton fx:id="fullTime" mnemonicParsing="false" prefHeight="31.0" prefWidth="120.0" text="Full Time">
+                                    <RadioButton fx:id="fullTime" mnemonicParsing="false" onAction="#fullTimeClicked" prefHeight="31.0" prefWidth="120.0" text="Full Time">
                                        <toggleGroup>
                                           <ToggleGroup fx:id="empType" />
                                        </toggleGroup></RadioButton>
-                                    <RadioButton fx:id="partTime" mnemonicParsing="false" prefHeight="31.0" prefWidth="120.0" text="Part Time" toggleGroup="$empType" />
-                                    <RadioButton fx:id="management" mnemonicParsing="false" prefHeight="31.0" prefWidth="120.0" text="Management" toggleGroup="$empType" />
+                                    <RadioButton fx:id="partTime" mnemonicParsing="false" onAction="#partTimeClicked" prefHeight="31.0" prefWidth="120.0" text="Part Time" toggleGroup="$empType" />
+                                    <RadioButton fx:id="management" mnemonicParsing="false" onAction="#manageClicked" prefHeight="31.0" prefWidth="120.0" text="Management" toggleGroup="$empType" />
                                  </children>
                               </HBox>
                               <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
@@ -110,7 +110,7 @@
                                        </HBox.margin></Button>
                                  </children>
                               </HBox>
-                              <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="70.0" text="Clear" translateX="40.0" GridPane.rowIndex="7" />
+                              <Button fx:id="clearButton" mnemonicParsing="false" onAction="#clear" prefHeight="25.0" prefWidth="70.0" text="Clear" translateX="40.0" GridPane.rowIndex="7" />
                            </children>
                         </GridPane>
                      </children>
