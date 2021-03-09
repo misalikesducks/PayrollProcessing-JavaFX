@@ -30,13 +30,11 @@ public class Controller {
    @FXML
    private TextArea show1;
 
-   @FXML
-   private RadioButton itDepartment, csDepartment, eceDepartment, fullTime, partTime, management,
-            departmentHead, manager, director;
+//   @FXML
+//   private RadioButton fullTime, partTime, management,
+//            departmentHead, manager, director;
    @FXML
    private ToggleGroup department, managementType, empType;
-   @FXML
-   private GridPane pane;
    private int manageRole = EMPTY;
 
    @FXML
@@ -165,15 +163,41 @@ public class Controller {
 
    void remove(ActionEvent event){
       Profile tempProfile = createProfile();
+      Employee tempEmp = new Employee(tempProfile);
       try{
-         if(tempProfile != null){
-
-         }else
-            throw new Exception();
+         if(tempProfile != null) {
+            if(database.getNumEmployee() != EMPTY){
+               if(!database.remove(tempEmp))
+                  throw new Exception();
+               else
+                  show1.appendText("Employee Removed Successfully");
+            }
+         }
       }catch(Exception e){
-         show1.appendText("Invalid Inputs");
+         show1.appendText("Employee does not exist");
+         return;
       }
    }
+
+   void setHours(ActionEvent event){
+      try{
+         if(Integer.parseInt(hours.getText()) < 0 || Integer.parseInt(hours.getText()) > Parttime.ACTUAL_MAX_HOURS)
+            throw new Exception();
+         else{
+            Profile tempProf = createProfile();
+            if(tempProf != null){
+               Employee tempEmp = new Parttime(tempProf,EMPTY, Integer.parseInt(hours.getText()));
+               database.setHours(tempEmp);
+            }
+            return;
+         }
+      }catch(Exception e){
+         show1.appendText("Hours not valid");
+         return;
+      }
+   }
+
+
    /**
     *
     * @return

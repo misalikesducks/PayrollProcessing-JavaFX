@@ -88,7 +88,7 @@
                                        <HBox.margin>
                                           <Insets right="25.0" />
                                        </HBox.margin></Button>
-                                    <Button fx:id="setHoursButton" alignment="CENTER" maxWidth="200.0" mnemonicParsing="false" prefWidth="140.0" text="Set Hours">
+                                    <Button fx:id="setHoursButton" alignment="CENTER" maxWidth="200.0" mnemonicParsing="false" onAction="#setHours" prefWidth="140.0" text="Set Hours">
                                        <HBox.margin>
                                           <Insets right="25.0" />
                                        </HBox.margin></Button>

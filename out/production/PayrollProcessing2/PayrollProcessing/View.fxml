@@ -84,7 +84,7 @@
                                        <HBox.margin>
                                           <Insets right="25.0" />
                                        </HBox.margin></Button>
-                                    <Button fx:id="removeButton" alignment="CENTER" maxWidth="200.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="140.0" text="Remove Employee">
+                                    <Button fx:id="removeButton" alignment="CENTER" maxWidth="200.0" mnemonicParsing="false" onAction="#remove" prefHeight="25.0" prefWidth="140.0" text="Remove Employee">
                                        <HBox.margin>
                                           <Insets right="25.0" />
                                        </HBox.margin></Button>

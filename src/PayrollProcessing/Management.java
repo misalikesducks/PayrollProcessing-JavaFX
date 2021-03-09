@@ -18,6 +18,8 @@ public class Management extends Fulltime {
    public static final double DEPHEAD_EXTRA_COMP = 9500; //365.38
    public static final double DIRECTOR_EXTRA_COMP = 12000; //461.54
 
+   final static double a = 0.0;
+   Object[] list  = new String[100];
    //CONSTRUCTOR
 
    /**
