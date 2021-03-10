@@ -111,8 +111,6 @@
                               <items>
                                 <MenuItem fx:id="importMenuItem" mnemonicParsing="false" onAction="#importDatabase" text="Import" />
                                     <MenuItem fx:id="exportMenuItem" mnemonicParsing="false" onAction="#exportDatabase" text="Export" />
-                                    <MenuItem mnemonicParsing="false" text="Serialization" />
-                                    <MenuItem mnemonicParsing="false" text="Deserialization" />
                               </items>
                             </Menu>
                             <Menu mnemonicParsing="false" text="Print">

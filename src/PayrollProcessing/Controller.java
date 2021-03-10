@@ -258,42 +258,52 @@ public class Controller {
          show1.appendText("Database import failed.\n");
          return;
       }
-
    }
 
    @FXML
    void exportDatabase(ActionEvent event){ // should create a new text file
-      FileChooser chooser = new FileChooser();
-      Stage stage = new Stage();
-      try {
-         File targetFile = new File("companyDatabase.txt"); // creates output txt file
-         targetFile.createNewFile();
-         targetFile.getParentFile().mkdirs();
-         PrintWriter pw = new PrintWriter(targetFile);
-         pw.print(database.print()); //write to file
-         pw.close();
-      } catch(Exception e){
-         show1.appendText("Database export failed.\n");
-         return;
+      if(!checkEmpty(database)) {
+         try {
+            FileChooser chooser = new FileChooser();
+            chooser.setTitle("Choose Directory for the Export");
+            Stage stage = new Stage();
+            chooser.showSaveDialog(stage);
+
+            File targetFile = new File("companyDatabase.txt"); // creates output txt file
+            targetFile.createNewFile();
+            targetFile.getParentFile().mkdirs();
+            PrintWriter pw = new PrintWriter(targetFile);
+            pw.print(database.print()); //write to file
+            pw.close();
+         } catch (Exception e) {
+            show1.appendText("Database export failed.\n");
+            return;
+         }
       }
    }
 
    @FXML
    void printDatabase(ActionEvent event){
-      if(!checkEmpty(database))
+      if(!checkEmpty(database)){
+         show1.appendText("--Printing earning statements for all employees--\n");
          show1.appendText(database.print());
+      }
    }
 
    @FXML
-   void printDatabaseByDepartment(ActionEvent event){
-      if(!checkEmpty(database))
+   void printDatabaseByDepartment(ActionEvent event) {
+      if (!checkEmpty(database)) {
+         show1.appendText("--Printing earning statements by date hired--\n");
          show1.appendText(database.printByDepartment());
+      }
    }
 
    @FXML
    void printDatabaseByDate(ActionEvent event){
-      if(!checkEmpty(database))
+      if(!checkEmpty(database)){
+         show1.appendText("--Printing earning statements by department--\n");
          show1.appendText(database.printByDate());
+      }
    }
 
    @FXML
