@@ -264,14 +264,22 @@ public class Controller {
    void exportDatabase(ActionEvent event){ // should create a new text file
       if(!checkEmpty(database)) {
          try {
-            FileChooser chooser = new FileChooser();
+            /*FileChooser chooser = new FileChooser();
             chooser.setTitle("Choose Directory for the Export");
             Stage stage = new Stage();
             chooser.showSaveDialog(stage);
 
             File targetFile = new File("companyDatabase.txt"); // creates output txt file
             targetFile.createNewFile();
-            targetFile.getParentFile().mkdirs();
+            targetFile.getParentFile().mkdirs();*/
+
+            FileChooser chooser = new FileChooser();
+            chooser.setTitle("Open Target File for the Export");
+            chooser.getExtensionFilters().addAll(new ExtensionFilter("Text Files", "*.txt"),
+                    new ExtensionFilter("All Files", "*.*"));
+            Stage stage = new Stage();
+            File targetFile = chooser.showSaveDialog(stage); //get the reference of the target file
+
             PrintWriter pw = new PrintWriter(targetFile);
             pw.print(database.print()); //write to file
             pw.close();
