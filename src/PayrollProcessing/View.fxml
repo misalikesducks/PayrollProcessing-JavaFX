@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="556.0" prefWidth="641.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="PayrollProcessing.Controller">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="556.0" prefWidth="641.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="PayrollProcessing.Controller">
    <top>
       <TabPane prefHeight="400.0" prefWidth="641.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
         <tabs>
@@ -109,8 +109,8 @@
                           <menus>
                             <Menu fx:id="fileMenu" mnemonicParsing="false" text="File">
                               <items>
-                                <MenuItem mnemonicParsing="false" text="Import" />
-                                    <MenuItem mnemonicParsing="false" text="Export" />
+                                <MenuItem fx:id="importMenu" mnemonicParsing="false" onAction="#importDatabase" text="Import" />
+                                    <MenuItem fx:id="exportMenu" mnemonicParsing="false" onAction="#exportDatabase" text="Export" />
                                     <MenuItem mnemonicParsing="false" text="Serialization" />
                                     <MenuItem mnemonicParsing="false" text="Deserialization" />
                               </items>
