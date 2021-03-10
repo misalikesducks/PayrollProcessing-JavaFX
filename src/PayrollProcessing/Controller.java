@@ -263,8 +263,8 @@ public class Controller {
 
    @FXML
    void exportDatabase(ActionEvent event){ // should create a new text file
-      // FileChooser chooser = new FileChooser();
-      // Stage stage = new Stage();
+      FileChooser chooser = new FileChooser();
+      Stage stage = new Stage();
       try {
          File targetFile = new File("companyDatabase.txt"); // creates output txt file
          targetFile.createNewFile();
