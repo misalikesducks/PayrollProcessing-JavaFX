@@ -200,7 +200,6 @@ public class Controller {
       }
    }
 
-
    /**
     *
     * @return
@@ -227,7 +226,6 @@ public class Controller {
 
    @FXML
    void importDatabase(ActionEvent event){
-
       FileChooser chooser = new FileChooser();
       chooser.setTitle("Open Source File for the Import");
       chooser.getExtensionFilters().addAll(new ExtensionFilter("Text Files", "*.txt"),
@@ -278,5 +276,38 @@ public class Controller {
          show1.appendText("Database export failed.");
          return;
       }
+   }
+
+   @FXML
+   void printDatabase(ActionEvent event){
+      if(!checkEmpty(database))
+         show1.appendText(database.print());
+   }
+
+   @FXML
+   void printDatabaseByDepartment(ActionEvent event){
+      if(!checkEmpty(database))
+         show1.appendText(database.printByDepartment());
+   }
+
+   @FXML
+   void printDatabaseByDate(ActionEvent event){
+      if(!checkEmpty(database))
+         show1.appendText(database.printByDate());
+   }
+
+   @FXML
+   void calcPayment(ActionEvent event){
+      database.processPayments();
+      show1.appendText("Calculation of employee payments is done.");
+   }
+
+   //helper method
+   public boolean checkEmpty(Company database){
+      if(database.getNumEmployee() == 0) {
+         System.out.println("Employee database is empty.");
+         return true;
+      }
+      return false;
    }
 }
