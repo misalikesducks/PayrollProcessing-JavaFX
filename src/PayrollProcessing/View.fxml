@@ -107,7 +107,7 @@
                      <children>
                         <MenuBar layoutX="14.0" layoutY="51.0">
                           <menus>
-                            <Menu mnemonicParsing="false" text="File">
+                            <Menu fx:id="fileMenu" mnemonicParsing="false" text="File">
                               <items>
                                 <MenuItem mnemonicParsing="false" text="Import" />
                                     <MenuItem mnemonicParsing="false" text="Export" />
@@ -115,14 +115,14 @@
                                     <MenuItem mnemonicParsing="false" text="Deserialization" />
                               </items>
                             </Menu>
-                            <Menu mnemonicParsing="false" text="Print">
+                            <Menu fx:id="printMenu" mnemonicParsing="false" text="Print">
                               <items>
-                                    <MenuItem mnemonicParsing="false" text="Default Print" />
-                                <MenuItem mnemonicParsing="false" text="Print by Department" />
-                                    <MenuItem mnemonicParsing="false" text="Print by Date" />
+                                    <MenuItem fx:id="printDefaultMenuItem" mnemonicParsing="false" onAction="#print" text="Default Print" />
+                                <MenuItem fx:id="printDepartmentMenuItem" mnemonicParsing="false" onAction="#printDepartment" text="Print by Department" />
+                                    <MenuItem fx:id="printDateMenuItem" mnemonicParsing="false" onAction="#printDate" text="Print by Date" />
                               </items>
                             </Menu>
-                            <Menu mnemonicParsing="false" text="Payment">
+                            <Menu fx:id="paymentMenu" mnemonicParsing="false" text="Payment">
                                  <items>
                                     <MenuItem mnemonicParsing="false" text="Calculate Payment" />
                                  </items>
