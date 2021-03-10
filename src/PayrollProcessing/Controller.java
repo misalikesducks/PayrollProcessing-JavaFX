@@ -255,7 +255,7 @@ public class Controller {
             database.add(tempEmp);
          }
       }catch(Exception e){
-         show1.appendText("Database import failed.");
+         show1.appendText("Database import failed.\n");
          return;
       }
 
@@ -273,7 +273,7 @@ public class Controller {
          pw.print(database.print()); //write to file
          pw.close();
       } catch(Exception e){
-         show1.appendText("Database export failed.");
+         show1.appendText("Database export failed.\n");
          return;
       }
    }
@@ -298,14 +298,16 @@ public class Controller {
 
    @FXML
    void calcPayment(ActionEvent event){
-      database.processPayments();
-      show1.appendText("Calculation of employee payments is done.");
+      if(!checkEmpty(database)) {
+         database.processPayments();
+         show1.appendText("Calculation of employee payments is done.\n");
+      }
    }
 
    //helper method
    public boolean checkEmpty(Company database){
       if(database.getNumEmployee() == 0) {
-         show1.appendText("Employee database is empty.");
+         show1.appendText("Employee database is empty.\n");
          return true;
       }
       return false;
