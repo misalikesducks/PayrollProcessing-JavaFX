@@ -305,7 +305,7 @@ public class Controller {
    //helper method
    public boolean checkEmpty(Company database){
       if(database.getNumEmployee() == 0) {
-         System.out.println("Employee database is empty.");
+         show1.appendText("Employee database is empty.");
          return true;
       }
       return false;
