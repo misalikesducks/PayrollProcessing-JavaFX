@@ -9,7 +9,6 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class CompanyTest {
-   //hi
    @Test
    void add() {
       Company database = new Company();

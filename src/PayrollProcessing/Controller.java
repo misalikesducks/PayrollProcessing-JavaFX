@@ -16,6 +16,7 @@ import javax.swing.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
+import java.util.Scanner;
 
 public class Controller {
    private Company database = new Company();
@@ -222,33 +223,60 @@ public class Controller {
       return tempProf;
    }
 
+   // TAB TWO
+
    @FXML
    void importDatabase(ActionEvent event){
+
       FileChooser chooser = new FileChooser();
       chooser.setTitle("Open Source File for the Import");
       chooser.getExtensionFilters().addAll(new ExtensionFilter("Text Files", "*.txt"),
               new ExtensionFilter("All Files", "*.*"));
       Stage stage = new Stage();
       File sourceFile = chooser.showOpenDialog(stage); // get the reference of the source file
+
       //write code to read from the file
+      try{
+         Date tempDate = null;
+         Profile tempProf = null;
+         Employee tempEmp = null;
+
+         Scanner sc = new Scanner(sourceFile);
+         while(sc.hasNextLine()){
+            String input = sc.nextLine();
+            String[] arrOfInput = input.split(",", 0);
+
+            tempDate = new Date(arrOfInput[3]);
+            tempProf = new Profile(arrOfInput[1], arrOfInput[2], tempDate);
+            if(arrOfInput[0].equals("P")) // parttime
+               tempEmp = new Parttime(tempProf, Double.parseDouble(arrOfInput[4]), 0);
+            else if(arrOfInput[0].equals("F")) // fulltime
+               tempEmp = new Fulltime(tempProf, Double.parseDouble(arrOfInput[4]));
+            else // management
+               tempEmp = new Management(tempProf, Double.parseDouble(arrOfInput[4]), Integer.parseInt(arrOfInput[5]));
+            database.add(tempEmp);
+         }
+      }catch(Exception e){
+         show1.appendText("Database import failed.");
+         return;
+      }
 
    }
 
    @FXML
    void exportDatabase(ActionEvent event){ // should create a new text file
-      FileChooser chooser = new FileChooser();
-      Stage stage = new Stage();
-      File targetFile = new File("companyDatabase.txt"); // creates output txt file
-      targetFile.getParentFile().mkdirs();
-      if(targetFile.exists()){
-         //print in textarea that file already exists
-      }
+      // FileChooser chooser = new FileChooser();
+      // Stage stage = new Stage();
       try {
+         File targetFile = new File("companyDatabase.txt"); // creates output txt file
+         targetFile.createNewFile();
+         targetFile.getParentFile().mkdirs();
          PrintWriter pw = new PrintWriter(targetFile);
          pw.print(database.print()); //write to file
          pw.close();
-      } catch(FileNotFoundException ex){
-
+      } catch(Exception e){
+         show1.appendText("Database export failed.");
+         return;
       }
    }
 }
