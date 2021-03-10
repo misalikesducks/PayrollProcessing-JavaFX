@@ -200,7 +200,6 @@ public class Controller {
       }
    }
 
-
    /**
     *
     * @return
@@ -227,7 +226,6 @@ public class Controller {
 
    @FXML
    void importDatabase(ActionEvent event){
-
       FileChooser chooser = new FileChooser();
       chooser.setTitle("Open Source File for the Import");
       chooser.getExtensionFilters().addAll(new ExtensionFilter("Text Files", "*.txt"),
@@ -257,7 +255,7 @@ public class Controller {
             database.add(tempEmp);
          }
       }catch(Exception e){
-         show1.appendText("Database import failed.");
+         show1.appendText("Database import failed.\n");
          return;
       }
 
@@ -265,8 +263,8 @@ public class Controller {
 
    @FXML
    void exportDatabase(ActionEvent event){ // should create a new text file
-      // FileChooser chooser = new FileChooser();
-      // Stage stage = new Stage();
+      FileChooser chooser = new FileChooser();
+      Stage stage = new Stage();
       try {
          File targetFile = new File("companyDatabase.txt"); // creates output txt file
          targetFile.createNewFile();
@@ -275,8 +273,43 @@ public class Controller {
          pw.print(database.print()); //write to file
          pw.close();
       } catch(Exception e){
-         show1.appendText("Database export failed.");
+         show1.appendText("Database export failed.\n");
          return;
       }
+   }
+
+   @FXML
+   void printDatabase(ActionEvent event){
+      if(!checkEmpty(database))
+         show1.appendText(database.print());
+   }
+
+   @FXML
+   void printDatabaseByDepartment(ActionEvent event){
+      if(!checkEmpty(database))
+         show1.appendText(database.printByDepartment());
+   }
+
+   @FXML
+   void printDatabaseByDate(ActionEvent event){
+      if(!checkEmpty(database))
+         show1.appendText(database.printByDate());
+   }
+
+   @FXML
+   void calcPayment(ActionEvent event){
+      if(!checkEmpty(database)) {
+         database.processPayments();
+         show1.appendText("Calculation of employee payments is done.\n");
+      }
+   }
+
+   //helper method
+   public boolean checkEmpty(Company database){
+      if(database.getNumEmployee() == 0) {
+         show1.appendText("Employee database is empty.\n");
+         return true;
+      }
+      return false;
    }
 }

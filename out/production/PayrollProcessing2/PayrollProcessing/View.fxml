@@ -109,22 +109,22 @@
                           <menus>
                             <Menu mnemonicParsing="false" text="File">
                               <items>
-                                <MenuItem fx:id="importMenu" mnemonicParsing="false" onAction="#importDatabase" text="Import" />
-                                    <MenuItem fx:id="exportMenu" mnemonicParsing="false" onAction="#exportDatabase" text="Export" />
+                                <MenuItem fx:id="importMenuItem" mnemonicParsing="false" onAction="#importDatabase" text="Import" />
+                                    <MenuItem fx:id="exportMenuItem" mnemonicParsing="false" onAction="#exportDatabase" text="Export" />
                                     <MenuItem mnemonicParsing="false" text="Serialization" />
                                     <MenuItem mnemonicParsing="false" text="Deserialization" />
                               </items>
                             </Menu>
                             <Menu mnemonicParsing="false" text="Print">
                               <items>
-                                    <MenuItem mnemonicParsing="false" text="Default Print" />
-                                <MenuItem mnemonicParsing="false" text="Print by Department" />
-                                    <MenuItem mnemonicParsing="false" text="Print by Date" />
+                                    <MenuItem fx:id="printMenuItem" mnemonicParsing="false" onAction="#printDatabase" text="Print" />
+                                <MenuItem fx:id="printByDepMenuItem" mnemonicParsing="false" onAction="#printDatabaseByDepartment" text="Print by Department" />
+                                    <MenuItem fx:id="printByDateMenuItem" mnemonicParsing="false" onAction="#printDatabaseByDate" text="Print by Date" />
                               </items>
                             </Menu>
                             <Menu mnemonicParsing="false" text="Payment">
                                  <items>
-                                    <MenuItem mnemonicParsing="false" text="Calculate Payment" />
+                                    <MenuItem fx:id="calcPaymentMenuItem" mnemonicParsing="false" onAction="#calcPayment" text="Calculate Payment" />
                                  </items>
                             </Menu>
                           </menus>

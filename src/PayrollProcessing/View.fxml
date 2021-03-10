@@ -32,7 +32,7 @@
                               <Label alignment="CENTER_RIGHT" prefHeight="46.0" prefWidth="140.0" text="Name " />
                               <Label alignment="CENTER_RIGHT" prefHeight="50.0" prefWidth="140.0" text="Department" GridPane.rowIndex="1" />
                               <Label alignment="CENTER_RIGHT" prefHeight="44.0" prefWidth="140.0" text="Date Hired" GridPane.rowIndex="2" />
-                              <DatePicker fx:id="dateHired" prefHeight="27.0" prefWidth="299.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <DatePicker fx:id="dateHired" editable="false" prefHeight="27.0" prefWidth="299.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                               <TextField fx:id="empName" alignment="CENTER" maxWidth="300.0" prefHeight="27.0" prefWidth="300.0" GridPane.columnIndex="1" />
                               <HBox alignment="CENTER_LEFT" prefHeight="10.0" prefWidth="456.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                  <children>
@@ -107,7 +107,7 @@
                      <children>
                         <MenuBar layoutX="14.0" layoutY="51.0">
                           <menus>
-                            <Menu fx:id="fileMenu" mnemonicParsing="false" text="File">
+                            <Menu mnemonicParsing="false" text="File">
                               <items>
                                 <MenuItem fx:id="importMenuItem" mnemonicParsing="false" onAction="#importDatabase" text="Import" />
                                     <MenuItem fx:id="exportMenuItem" mnemonicParsing="false" onAction="#exportDatabase" text="Export" />
@@ -115,16 +115,16 @@
                                     <MenuItem mnemonicParsing="false" text="Deserialization" />
                               </items>
                             </Menu>
-                            <Menu fx:id="printMenu" mnemonicParsing="false" text="Print">
+                            <Menu mnemonicParsing="false" text="Print">
                               <items>
-                                    <MenuItem fx:id="printDefaultMenuItem" mnemonicParsing="false" onAction="#print" text="Default Print" />
-                                <MenuItem fx:id="printDepartmentMenuItem" mnemonicParsing="false" onAction="#printDepartment" text="Print by Department" />
-                                    <MenuItem fx:id="printDateMenuItem" mnemonicParsing="false" onAction="#printDate" text="Print by Date" />
+                                    <MenuItem fx:id="printMenuItem" mnemonicParsing="false" onAction="#printDatabase" text="Print" />
+                                <MenuItem fx:id="printByDepMenuItem" mnemonicParsing="false" onAction="#printDatabaseByDepartment" text="Print by Department" />
+                                    <MenuItem fx:id="printByDateMenuItem" mnemonicParsing="false" onAction="#printDatabaseByDate" text="Print by Date" />
                               </items>
                             </Menu>
-                            <Menu fx:id="paymentMenu" mnemonicParsing="false" text="Payment">
+                            <Menu mnemonicParsing="false" text="Payment">
                                  <items>
-                                    <MenuItem mnemonicParsing="false" text="Calculate Payment" />
+                                    <MenuItem fx:id="calcPaymentMenuItem" mnemonicParsing="false" onAction="#calcPayment" text="Calculate Payment" />
                                  </items>
                             </Menu>
                           </menus>
@@ -141,6 +141,6 @@
       </TabPane>
    </top>
    <right>
-      <TextArea fx:id="show1" prefHeight="151.0" prefWidth="474.0" BorderPane.alignment="CENTER" />
+      <TextArea fx:id="show1" editable="false" prefHeight="151.0" prefWidth="474.0" BorderPane.alignment="CENTER" />
    </right>
 </BorderPane>
