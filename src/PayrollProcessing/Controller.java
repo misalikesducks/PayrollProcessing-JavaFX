@@ -147,7 +147,7 @@ public class Controller {
                else
                   throw new Exception();
             }catch(Exception e){
-               show1.appendText("Management Type is not selected\n");
+               show1.appendText("Management type is not selected.\n");
                return;
             }
             if(manageToggle.equals("Director"))
@@ -283,7 +283,7 @@ public class Controller {
             throw new IllegalArgumentException();
          }
       }catch(IllegalArgumentException e) {
-         show1.appendText("Profile information input is invalid or missing");
+         show1.appendText("Profile information input is invalid or missing.");
       }
       return tempProf;
    }
