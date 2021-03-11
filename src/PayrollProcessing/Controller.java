@@ -266,7 +266,7 @@ public class Controller {
       if(!checkEmpty(database)) {
          try {
             FileChooser chooser = new FileChooser();
-            chooser.setTitle("test");
+            chooser.setTitle("Open Target File for the Export");
             chooser.getExtensionFilters().add(new ExtensionFilter("Text Files", "*.txt"));
             File exportFile = chooser.showSaveDialog(new Stage());
             if(exportFile != null){
