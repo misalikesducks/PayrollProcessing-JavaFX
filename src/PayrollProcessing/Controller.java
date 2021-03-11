@@ -336,7 +336,7 @@ public class Controller {
     * Exports current Company database into a new text file in user's chosen directory
     * @param event
     */
-   void exportDatabase(ActionEvent event){
+   void export(ActionEvent event){
       if(!checkEmpty(database)) {
          try {
             FileChooser chooser = new FileChooser();
@@ -344,10 +344,10 @@ public class Controller {
             chooser.getExtensionFilters().add(new ExtensionFilter("Text Files", "*.txt"));
             File exportFile = chooser.showSaveDialog(new Stage());
             if(exportFile != null){
-               PrintWriter pw = new PrintWriter(exportFile);
-               pw.print(database.print()); //write to file
-               pw.close();
-               show1.appendText("Database export successful.\n");
+               if(database.exportDatabase(exportFile))
+                  show1.appendText("Database export successful.\n");
+               else
+                  show1.appendText("Database export failed.\n");
             }
          } catch (Exception e) {
             show1.appendText("Database export failed.\n");

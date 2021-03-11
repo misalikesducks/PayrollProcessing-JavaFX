@@ -1,5 +1,8 @@
 package PayrollProcessing;
 
+import java.io.File;
+import java.io.PrintWriter;
+
 /**
  * Company class representing database of Employees.
  * @author Connie Chen, Tiffany Lee
@@ -224,5 +227,19 @@ public class Company {
       return compareDates < NOT_TRUE;
    }
 
-
+   /**
+    * Writes the employee database from the array to given text file.
+    * @param exportFile to be written to
+    * @return true if export is successful, false otherwise
+    */
+   public boolean exportDatabase(File exportFile){
+      try{
+         PrintWriter pw = new PrintWriter(exportFile);
+         pw.print(print()); //write to file
+         pw.close();
+         return true;
+      }catch(Exception e){
+         return false;
+      }
+   }
 }
