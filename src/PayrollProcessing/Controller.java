@@ -120,7 +120,8 @@ public class Controller {
          else
             throw new Exception();
       }catch(Exception e){
-         show1.appendText("Invalid Select Employee Type\n");
+         show1.appendText("Missing Select Employee Type\n");
+         return;
       }
 
       switch(selectedEmp) {
@@ -247,16 +248,27 @@ public class Controller {
          show1.appendText("Date Picker or Name is Empty!\n");
          return tempProf;
       }
+      String selectedTog = null;
+      try{
+         if(department.getSelectedToggle() != null)
+            selectedTog = ((RadioButton) department.getSelectedToggle()).getText();
+         else
+            throw new Exception();
+      }catch(Exception e){
+         show1.appendText("Employee Department is Missing!\n");
+         return tempProf;
+      }
+
 
       try{
-         if(tempDate.isValid()) {
-            tempProf = new Profile(empName.getText(), ((RadioButton) department.getSelectedToggle()).getText(),
+         if(tempDate.isValid() && selectedTog != null) {
+            tempProf = new Profile(empName.getText(), selectedTog,
                               tempDate);
          }else{
             throw new IllegalArgumentException();
          }
       }catch(IllegalArgumentException e) {
-         show1.appendText("Date hired or Name is invalid\n");
+         show1.appendText("Profile Information input is invalid or missing");
       }
       return tempProf;
    }
