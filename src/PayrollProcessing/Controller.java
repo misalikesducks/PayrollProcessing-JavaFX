@@ -42,6 +42,7 @@ public class Controller {
       partRate.clear();
       salary.clear();
       dateHired.setValue(null);
+      show1.clear();
 
       managementType.getToggles().forEach(toggle -> {
          RadioButton tempButton = (RadioButton) toggle;
@@ -120,7 +121,7 @@ public class Controller {
          else
             throw new Exception();
       }catch(Exception e){
-         show1.appendText("Missing Select Employee Type\n");
+         show1.appendText("Missing employee type.\n");
          return;
       }
 
@@ -131,7 +132,7 @@ public class Controller {
             try{
                annualSalary = Double.parseDouble(salary.getText());
             }catch(Exception e){
-               show1.appendText("Invalid Salary\n");
+               show1.appendText("Invalid salary.\n");
                return;
             }
             if(selectedEmp.equals("Full Time")) {
@@ -152,7 +153,7 @@ public class Controller {
             try{
                partTimeRate = Double.parseDouble(partRate.getText());
             }catch(Exception e){
-               show1.appendText("Invalid Hourly Rate for Partime Employee\n");
+               show1.appendText("Invalid hourly rate for parttime employee.\n");
                return;
             }
             tempEmp = new Parttime(prof, partTimeRate, EMPTY);
@@ -163,9 +164,9 @@ public class Controller {
          if(!database.add(tempEmp))
             throw new Exception();
          else
-            show1.appendText("Added Employee Successfully\n");
+            show1.appendText("Employee added successfully.\n");
       }catch(Exception e){
-         show1.appendText("Could not add Employee, Employee exists or invalid inputs\n");
+         show1.appendText("Could not add employee, employee exists or invalid input(s).\n");
          return;
       }
       database.print();
@@ -182,15 +183,17 @@ public class Controller {
       Employee tempEmp = new Employee(tempProfile);
       try{
          if(tempProfile != null) {
+            if(checkEmpty(database))
+               return;
             if(database.getNumEmployee() != EMPTY){
                if(!database.remove(tempEmp))
                   throw new Exception();
                else
-                  show1.appendText("Employee Removed Successfully\n");
+                  show1.appendText("Employee removed successfully.\n");
             }
          }
       }catch(Exception e){
-         show1.appendText("Employee does not exist\n");
+         show1.appendText("Employee does not exist.\n");
          return;
       }
    }
@@ -208,13 +211,15 @@ public class Controller {
          else{
             Profile tempProf = createProfile();
             if(tempProf != null){
+               if(checkEmpty(database))
+                  return;
                Employee tempEmp = new Parttime(tempProf,EMPTY, Integer.parseInt(hours.getText()));
                database.setHours(tempEmp);
             }
             return;
          }
       }catch(Exception e){
-         show1.appendText("Hours not valid\n");
+         show1.appendText("Invalid hours.\n");
          return;
       }
    }
@@ -234,7 +239,7 @@ public class Controller {
                throw new Exception();
          }
       }catch(Exception e){
-         show1.appendText("Please Enter Valid Name!\n");
+         show1.appendText("Please enter a valid name.\n");
          return tempProf;
       }
 
@@ -245,7 +250,7 @@ public class Controller {
          }else
             throw new Exception();
       }catch(Exception e){
-         show1.appendText("Date Picker or Name is Empty!\n");
+         show1.appendText("Date picker or name is empty.\n");
          return tempProf;
       }
       String selectedTog = null;
@@ -255,7 +260,7 @@ public class Controller {
          else
             throw new Exception();
       }catch(Exception e){
-         show1.appendText("Employee Department is Missing!\n");
+         show1.appendText("Employee department is missing.\n");
          return tempProf;
       }
 
@@ -268,7 +273,7 @@ public class Controller {
             throw new IllegalArgumentException();
          }
       }catch(IllegalArgumentException e) {
-         show1.appendText("Profile Information input is invalid or missing");
+         show1.appendText("Profile information input is invalid or missing");
       }
       return tempProf;
    }
