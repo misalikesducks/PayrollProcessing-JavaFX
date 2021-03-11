@@ -3,19 +3,10 @@ package PayrollProcessing;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.GridPane;
-import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.FileChooser.ExtensionFilter;
-import javafx.scene.control.Alert.AlertType;
-
-import javax.swing.*;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.Scanner;
 
@@ -49,30 +40,7 @@ public class Controller {
          tempButton.setDisable(true);
       });
    }
-   @FXML
-   /**
-    * Clear the tab pane
-    */
-   void clear(ActionEvent event){
-      empName.clear();
-      hours.clear();
-      partRate.clear();
-      salary.clear();
-      dateHired.getEditor().clear();
 
-      managementType.getToggles().forEach(toggle -> {
-         RadioButton tempButton = (RadioButton) toggle;
-         tempButton.setSelected(false);
-      });
-      department.getToggles().forEach(toggle -> {
-         RadioButton tempButton = (RadioButton) toggle;
-         tempButton.setSelected(false);
-      });
-      empType.getToggles().forEach(toggle -> {
-         RadioButton tempButton = (RadioButton) toggle;
-         tempButton.setSelected(false);
-      });
-   }
    @FXML
    void partTimeClicked(ActionEvent event) {
       managementType.getToggles().forEach(toggle -> {
@@ -101,7 +69,6 @@ public class Controller {
     * @param event
     */
    void add(ActionEvent event) {
-      show1.clear();
       Profile prof = createProfile();
       if(prof == null)
          return;
@@ -113,7 +80,7 @@ public class Controller {
          else
             throw new Exception();
       }catch(Exception e){
-         show1.appendText("Invalid Select Employee Type");
+         show1.appendText("Invalid Select Employee Type\n");
       }
 
       switch(selectedEmp) {
@@ -123,7 +90,7 @@ public class Controller {
             try{
                annualSalary = Double.parseDouble(salary.getText());
             }catch(Exception e){
-               show1.appendText("Invalid Salary");
+               show1.appendText("Invalid Salary\n");
                return;
             }
             if(selectedEmp.equals("Full Time")) {
@@ -144,7 +111,7 @@ public class Controller {
             try{
                partTimeRate = Double.parseDouble(partRate.getText());
             }catch(Exception e){
-               show1.appendText(partTimeRate + "Invalid Hourly Rate for Partime Employee");
+               show1.appendText("Invalid Hourly Rate for Partime Employee\n");
                return;
             }
             tempEmp = new Parttime(prof, partTimeRate, EMPTY);
@@ -155,9 +122,9 @@ public class Controller {
          if(!database.add(tempEmp))
             throw new Exception();
          else
-            show1.appendText("Added Employee Successfully");
+            show1.appendText("Added Employee Successfully\n");
       }catch(Exception e){
-         show1.appendText("Could not add Employee, Employee exists or invalid inputs");
+         show1.appendText("Could not add Employee, Employee exists or invalid inputs\n");
          return;
       }
       database.print();
@@ -173,11 +140,11 @@ public class Controller {
                if(!database.remove(tempEmp))
                   throw new Exception();
                else
-                  show1.appendText("Employee Removed Successfully");
+                  show1.appendText("Employee Removed Successfully\n");
             }
          }
       }catch(Exception e){
-         show1.appendText("Employee does not exist");
+         show1.appendText("Employee does not exist\n");
          return;
       }
    }
@@ -196,7 +163,7 @@ public class Controller {
             return;
          }
       }catch(Exception e){
-         show1.appendText("Hours not valid");
+         show1.appendText("Hours not valid\n");
          return;
       }
    }
@@ -206,19 +173,40 @@ public class Controller {
     * @return
     */
    Profile createProfile() {
-      String date = dateHired.getValue().toString();
-      Date tempDate = new Date(date.substring(5,7) + "/" + date.substring(8) + "/" + date.substring(0, 4));
+      String date = null;
+      Date tempDate = null;
       Profile tempProf = null;
       String name = empName.getText().trim().toUpperCase();
       try{
-         if(tempDate.isValid() && name.length() != EMPTY) {
+         for(int i = 0; i < name.length(); i++){
+            if(Character.isDigit(name.charAt(i)))
+               throw new Exception();
+         }
+      }catch(Exception e){
+         show1.appendText("Please Enter Valid Name!\n");
+         return tempProf;
+      }
+
+      try{
+         if(dateHired.getValue() != null && name.length() != EMPTY) {
+            date = dateHired.getValue().toString();
+            tempDate = new Date(date.substring(5, 7) + "/" + date.substring(8) + "/" + date.substring(0, 4));
+         }else
+            throw new Exception();
+      }catch(Exception e){
+         show1.appendText("Date Picker or Name is Empty!\n");
+         return tempProf;
+      }
+
+      try{
+         if(tempDate.isValid()) {
             tempProf = new Profile(empName.getText(), ((RadioButton) department.getSelectedToggle()).getText(),
                               tempDate);
          }else{
             throw new IllegalArgumentException();
          }
       }catch(IllegalArgumentException e) {
-         show1.appendText("Date hired or Name is invalid");
+         show1.appendText("Date hired or Name is invalid\n");
       }
       return tempProf;
    }
