@@ -7,6 +7,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.FileChooser.ExtensionFilter;
@@ -258,42 +259,59 @@ public class Controller {
          show1.appendText("Database import failed.\n");
          return;
       }
-
    }
 
    @FXML
    void exportDatabase(ActionEvent event){ // should create a new text file
-      FileChooser chooser = new FileChooser();
-      Stage stage = new Stage();
-      try {
-         File targetFile = new File("companyDatabase.txt"); // creates output txt file
-         targetFile.createNewFile();
-         targetFile.getParentFile().mkdirs();
-         PrintWriter pw = new PrintWriter(targetFile);
-         pw.print(database.print()); //write to file
-         pw.close();
-      } catch(Exception e){
-         show1.appendText("Database export failed.\n");
-         return;
+      if(!checkEmpty(database)) {
+         try {
+            FileChooser chooser = new FileChooser();
+            chooser.setTitle("Open Target File for the Export");
+            chooser.getExtensionFilters().add(new ExtensionFilter("Text Files", "*.txt"));
+            File exportFile = chooser.showSaveDialog(new Stage());
+            if(exportFile != null){
+               PrintWriter pw = new PrintWriter(exportFile);
+               pw.print(database.print()); //write to file
+               pw.close();
+            }
+            /*FileChooser chooser = new FileChooser();
+            chooser.setTitle("Open Target File for the Export");
+            chooser.getExtensionFilters().addAll(new ExtensionFilter("Text Files", "*.txt"));
+            Stage stage = new Stage();
+            File targetFile = chooser.showSaveDialog(stage); //get the reference of the target file
+
+            PrintWriter pw = new PrintWriter(targetFile);
+            pw.print(database.print()); //write to file
+            pw.close();*/
+         } catch (Exception e) {
+            show1.appendText("Database export failed.\n");
+            return;
+         }
       }
    }
 
    @FXML
    void printDatabase(ActionEvent event){
-      if(!checkEmpty(database))
+      if(!checkEmpty(database)){
+         show1.appendText("--Printing earning statements for all employees--\n");
          show1.appendText(database.print());
+      }
    }
 
    @FXML
-   void printDatabaseByDepartment(ActionEvent event){
-      if(!checkEmpty(database))
+   void printDatabaseByDepartment(ActionEvent event) {
+      if (!checkEmpty(database)) {
+         show1.appendText("--Printing earning statements by date hired--\n");
          show1.appendText(database.printByDepartment());
+      }
    }
 
    @FXML
    void printDatabaseByDate(ActionEvent event){
-      if(!checkEmpty(database))
+      if(!checkEmpty(database)){
+         show1.appendText("--Printing earning statements by department--\n");
          show1.appendText(database.printByDate());
+      }
    }
 
    @FXML

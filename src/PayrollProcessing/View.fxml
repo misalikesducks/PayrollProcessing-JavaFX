@@ -111,8 +111,6 @@
                               <items>
                                 <MenuItem fx:id="importMenuItem" mnemonicParsing="false" onAction="#importDatabase" text="Import" />
                                     <MenuItem fx:id="exportMenuItem" mnemonicParsing="false" onAction="#exportDatabase" text="Export" />
-                                    <MenuItem mnemonicParsing="false" text="Serialization" />
-                                    <MenuItem mnemonicParsing="false" text="Deserialization" />
                               </items>
                             </Menu>
                             <Menu mnemonicParsing="false" text="Print">
@@ -141,6 +139,6 @@
       </TabPane>
    </top>
    <right>
-      <TextArea fx:id="show1" editable="false" prefHeight="151.0" prefWidth="474.0" BorderPane.alignment="CENTER" />
+      <TextArea fx:id="show1" editable="false" prefHeight="156.0" prefWidth="475.0" BorderPane.alignment="CENTER" />
    </right>
 </BorderPane>
