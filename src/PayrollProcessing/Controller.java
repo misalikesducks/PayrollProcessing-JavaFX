@@ -140,9 +140,19 @@ public class Controller {
                break;
             }
             int manageCode = EMPTY;
-            if(((RadioButton)managementType.getSelectedToggle()).getText().equals("Director"))
+            String manageToggle = null;
+            try{
+               if((RadioButton)managementType.getSelectedToggle() != null)
+                  manageToggle = ((RadioButton)managementType.getSelectedToggle()).getText();
+               else
+                  throw new Exception();
+            }catch(Exception e){
+               show1.appendText("Management Type is not selected\n");
+               return;
+            }
+            if(manageToggle.equals("Director"))
                manageCode = Management.DIRECTOR;
-            else if(((RadioButton)managementType.getSelectedToggle()).getText().equals("Department Head"))
+            else if(manageToggle.equals("Department Head"))
                manageCode = Management.DEPARTMENT_HEAD;
             else
                manageCode = Management.MANAGER;
