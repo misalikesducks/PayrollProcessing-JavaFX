@@ -375,7 +375,7 @@ public class Controller {
     */
    void printDatabaseByDepartment(ActionEvent event) {
       if (!checkEmpty(database)) {
-         show1.appendText("--Printing earning statements by date hired--\n");
+         show1.appendText("--Printing earning statements by department--\n");
          show1.appendText(database.printByDepartment());
       }
    }
@@ -387,7 +387,7 @@ public class Controller {
     */
    void printDatabaseByDate(ActionEvent event){
       if(!checkEmpty(database)){
-         show1.appendText("--Printing earning statements by department--\n");
+         show1.appendText("--Printing earning statements by date hired--\n");
          show1.appendText(database.printByDate());
       }
    }
