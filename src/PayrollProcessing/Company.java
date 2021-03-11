@@ -138,9 +138,6 @@ public class Company {
       for(int i = 0; i < numEmployee; i++)
          allEmps += emplist[i].toString() + "\n";
 
-      /*for(int i = 0; i < numEmployee; i++)
-         System.out.println(emplist[i].toString());*/
-
       return allEmps;
    }
 

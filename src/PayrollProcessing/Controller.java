@@ -10,10 +10,15 @@ import java.io.File;
 import java.io.PrintWriter;
 import java.util.Scanner;
 
+/**
+ * Controller is the operational class for the JavaFX Payroll Processing GUI
+ * @author Connie Chen, Tiffany Lee
+ */
 public class Controller {
    private Company database = new Company();
 
    public static final int EMPTY = 0;
+
    @FXML
    private TextField empName, hours, partRate, salary;
 
@@ -23,14 +28,40 @@ public class Controller {
    @FXML
    private TextArea show1;
 
-//   @FXML
-//   private RadioButton fullTime, partTime, management,
-//            departmentHead, manager, director;
    @FXML
    private ToggleGroup department, managementType, empType;
-   private int manageRole = EMPTY;
 
    @FXML
+   /**
+    * Clears the Employee Management tab pane
+    * @param event
+    */
+   void clear(ActionEvent event){
+      empName.clear();
+      hours.clear();
+      partRate.clear();
+      salary.clear();
+      dateHired.setValue(null);
+
+      managementType.getToggles().forEach(toggle -> {
+         RadioButton tempButton = (RadioButton) toggle;
+         tempButton.setSelected(false);
+      });
+      department.getToggles().forEach(toggle -> {
+         RadioButton tempButton = (RadioButton) toggle;
+         tempButton.setSelected(false);
+      });
+      empType.getToggles().forEach(toggle -> {
+         RadioButton tempButton = (RadioButton) toggle;
+         tempButton.setSelected(false);
+      });
+   }
+
+   @FXML
+   /**
+    * Disable not applicable items on Employee Management tab pane for Fulltime Employee
+    * @param event
+    */
    void fullTimeClicked(ActionEvent event) {
       hours.setDisable(true);
       partRate.setDisable(true);
@@ -42,6 +73,10 @@ public class Controller {
    }
 
    @FXML
+   /**
+    * Disable not applicable items on Employee Management tab pane for Parttime Employee
+    * @param event
+    */
    void partTimeClicked(ActionEvent event) {
       managementType.getToggles().forEach(toggle -> {
          RadioButton tempButton = (RadioButton) toggle;
@@ -53,6 +88,10 @@ public class Controller {
    }
 
    @FXML
+   /**
+    * Disable not applicable items on Employee Management tab pane for Maanagement Employee
+    * @param event
+    */
    void manageClicked(ActionEvent event){
       hours.setDisable(true);
       partRate.setDisable(true);
@@ -65,7 +104,8 @@ public class Controller {
 
    @FXML
    /**
-    * Event Handler for the add Employee button
+    * Event Handler for the Add Employee button
+    * Adds Employee using user input to Company database
     * @param event
     */
    void add(ActionEvent event) {
@@ -131,6 +171,11 @@ public class Controller {
    }
 
    @FXML
+   /**
+    * Event handler for the Remove Employee button
+    * Removes specified Employee from Company database, unless Employee does not exist
+    * @param event
+    */
    void remove(ActionEvent event){
       Profile tempProfile = createProfile();
       Employee tempEmp = new Employee(tempProfile);
@@ -150,6 +195,11 @@ public class Controller {
    }
 
    @FXML
+   /**
+    * Event handler for the Set Hours button
+    * Sets hours of specified Employee with given user input
+    * @param event
+    */
    void setHours(ActionEvent event){
       try{
          if(Integer.parseInt(hours.getText()) < 0 || Integer.parseInt(hours.getText()) > Parttime.ACTUAL_MAX_HOURS)
@@ -169,8 +219,8 @@ public class Controller {
    }
 
    /**
-    *
-    * @return
+    * Creates a Profile object with user input from GUI
+    * @return Profile of employee
     */
    Profile createProfile() {
       String date = null;
@@ -211,9 +261,12 @@ public class Controller {
       return tempProf;
    }
 
-   // TAB TWO
-
    @FXML
+   /**
+    * Event handler for Import Menu Item
+    * Imports list of Employees from a selected text file
+    * @param event
+    */
    void importDatabase(ActionEvent event){
       FileChooser chooser = new FileChooser();
       chooser.setTitle("Open Source File for the Import");
@@ -222,12 +275,12 @@ public class Controller {
       Stage stage = new Stage();
       File sourceFile = chooser.showOpenDialog(stage); // get the reference of the source file
 
-      //write code to read from the file
       try{
          Date tempDate = null;
          Profile tempProf = null;
          Employee tempEmp = null;
 
+         //read from the file
          Scanner sc = new Scanner(sourceFile);
          while(sc.hasNextLine()){
             String input = sc.nextLine();
@@ -243,6 +296,7 @@ public class Controller {
                tempEmp = new Management(tempProf, Double.parseDouble(arrOfInput[4]), Integer.parseInt(arrOfInput[5]));
             database.add(tempEmp);
          }
+         show1.appendText("Database import successful.\n");
       }catch(Exception e){
          show1.appendText("Database import failed.\n");
          return;
@@ -250,27 +304,24 @@ public class Controller {
    }
 
    @FXML
-   void exportDatabase(ActionEvent event){ // should create a new text file
+   /**
+    * Event handler for Export Menu Item
+    * Exports current Company database into a new text file in user's chosen directory
+    * @param event
+    */
+   void exportDatabase(ActionEvent event){
       if(!checkEmpty(database)) {
          try {
             FileChooser chooser = new FileChooser();
-            chooser.setTitle("Open Target File for the Export");
+            chooser.setTitle("Open Target Directory for the Export");
             chooser.getExtensionFilters().add(new ExtensionFilter("Text Files", "*.txt"));
             File exportFile = chooser.showSaveDialog(new Stage());
             if(exportFile != null){
                PrintWriter pw = new PrintWriter(exportFile);
                pw.print(database.print()); //write to file
                pw.close();
+               show1.appendText("Database export successful.\n");
             }
-            /*FileChooser chooser = new FileChooser();
-            chooser.setTitle("Open Target File for the Export");
-            chooser.getExtensionFilters().addAll(new ExtensionFilter("Text Files", "*.txt"));
-            Stage stage = new Stage();
-            File targetFile = chooser.showSaveDialog(stage); //get the reference of the target file
-
-            PrintWriter pw = new PrintWriter(targetFile);
-            pw.print(database.print()); //write to file
-            pw.close();*/
          } catch (Exception e) {
             show1.appendText("Database export failed.\n");
             return;
@@ -279,6 +330,10 @@ public class Controller {
    }
 
    @FXML
+   /**
+    * Prints all Employee objects in the Company database as is to TextArea
+    * @param event
+    */
    void printDatabase(ActionEvent event){
       if(!checkEmpty(database)){
          show1.appendText("--Printing earning statements for all employees--\n");
@@ -287,6 +342,10 @@ public class Controller {
    }
 
    @FXML
+   /**
+    * Prints all Employee objects in the Company database sorted by Department to TextArea
+    * @param event
+    */
    void printDatabaseByDepartment(ActionEvent event) {
       if (!checkEmpty(database)) {
          show1.appendText("--Printing earning statements by date hired--\n");
@@ -295,6 +354,10 @@ public class Controller {
    }
 
    @FXML
+   /**
+    * Prints all Employee objects in the Company database sorted by Date to TextArea
+    * @param event
+    */
    void printDatabaseByDate(ActionEvent event){
       if(!checkEmpty(database)){
          show1.appendText("--Printing earning statements by department--\n");
@@ -303,6 +366,10 @@ public class Controller {
    }
 
    @FXML
+   /**
+    * Calculates payment for all Employee objects in the Company database
+    * @param event
+    */
    void calcPayment(ActionEvent event){
       if(!checkEmpty(database)) {
          database.processPayments();
@@ -310,7 +377,11 @@ public class Controller {
       }
    }
 
-   //helper method
+   /**
+    * Returns whether a Company database is empty or not, and prints to TextArea if it is empty
+    * @param database of the Employee objects
+    * @return boolean, true if Company is empty, false otherwise
+    */
    public boolean checkEmpty(Company database){
       if(database.getNumEmployee() == 0) {
          show1.appendText("Employee database is empty.\n");
