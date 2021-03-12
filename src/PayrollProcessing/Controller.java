@@ -31,11 +31,12 @@ public class Controller {
    @FXML
    private ToggleGroup department, managementType, empType;
 
-   @FXML
+
    /**
     * Clears the Employee Management tab pane
     * @param event
     */
+   @FXML
    void clear(ActionEvent event){
       empName.clear();
       hours.clear();
@@ -58,11 +59,12 @@ public class Controller {
       });
    }
 
-   @FXML
+
    /**
     * Disable not applicable items on Employee Management tab pane for Fulltime Employee
     * @param event
     */
+   @FXML
    void fullTimeClicked(ActionEvent event) {
       hours.setDisable(true);
       partRate.setDisable(true);
@@ -73,11 +75,12 @@ public class Controller {
       });
    }
 
-   @FXML
+
    /**
     * Disable not applicable items on Employee Management tab pane for Parttime Employee
     * @param event
     */
+   @FXML
    void partTimeClicked(ActionEvent event) {
       managementType.getToggles().forEach(toggle -> {
          RadioButton tempButton = (RadioButton) toggle;
@@ -88,11 +91,12 @@ public class Controller {
       salary.setDisable(true);
    }
 
-   @FXML
+
    /**
     * Disable not applicable items on Employee Management tab pane for Maanagement Employee
     * @param event
     */
+   @FXML
    void manageClicked(ActionEvent event){
       hours.setDisable(true);
       partRate.setDisable(true);
@@ -103,12 +107,13 @@ public class Controller {
       });
    }
 
-   @FXML
+
    /**
     * Event Handler for the Add Employee button
     * Adds Employee using user input to Company database
     * @param event
     */
+   @FXML
    void add(ActionEvent event) {
       Profile prof = createProfile();
       if(prof == null)
@@ -186,12 +191,13 @@ public class Controller {
       database.print();
    }
 
-   @FXML
+
    /**
     * Event handler for the Remove Employee button
     * Removes specified Employee from Company database, unless Employee does not exist
     * @param event
     */
+   @FXML
    void remove(ActionEvent event){
       Profile tempProfile = createProfile();
       Employee tempEmp = new Employee(tempProfile);
@@ -213,12 +219,13 @@ public class Controller {
       }
    }
 
-   @FXML
+
    /**
     * Event handler for the Set Hours button
     * Sets hours of specified Employee with given user input
     * @param event
     */
+   @FXML
    void setHours(ActionEvent event){
       try{
          if(Integer.parseInt(hours.getText()) < 0 || Integer.parseInt(hours.getText()) > Parttime.ACTUAL_MAX_HOURS)
@@ -303,12 +310,13 @@ public class Controller {
       return tempProf;
    }
 
-   @FXML
+
    /**
     * Event handler for Import Menu Item
     * Imports list of Employees from a selected text file
     * @param event
     */
+   @FXML
    void importDatabase(ActionEvent event){
       FileChooser chooser = new FileChooser();
       chooser.setTitle("Open Source File for the Import");
@@ -345,12 +353,13 @@ public class Controller {
       }
    }
 
-   @FXML
+
    /**
     * Event handler for Export Menu Item
     * Exports current Company database into a new text file in user's chosen directory
     * @param event
     */
+   @FXML
    void export(ActionEvent event){
       if(!checkEmpty(database)) {
          try {
@@ -371,11 +380,11 @@ public class Controller {
       }
    }
 
-   @FXML
    /**
     * Prints all Employee objects in the Company database as is to TextArea
     * @param event
     */
+   @FXML
    void printDatabase(ActionEvent event){
       if(!checkEmpty(database)){
          show1.appendText("--Printing earning statements for all employees--\n");
@@ -383,11 +392,11 @@ public class Controller {
       }
    }
 
-   @FXML
    /**
     * Prints all Employee objects in the Company database sorted by Department to TextArea
     * @param event
     */
+   @FXML
    void printDatabaseByDepartment(ActionEvent event) {
       if (!checkEmpty(database)) {
          show1.appendText("--Printing earning statements by department--\n");
@@ -395,11 +404,11 @@ public class Controller {
       }
    }
 
-   @FXML
    /**
     * Prints all Employee objects in the Company database sorted by Date to TextArea
     * @param event
     */
+   @FXML
    void printDatabaseByDate(ActionEvent event){
       if(!checkEmpty(database)){
          show1.appendText("--Printing earning statements by date hired--\n");
@@ -407,11 +416,11 @@ public class Controller {
       }
    }
 
-   @FXML
    /**
     * Calculates payment for all Employee objects in the Company database
     * @param event
     */
+   @FXML
    void calcPayment(ActionEvent event){
       if(!checkEmpty(database)) {
          database.processPayments();
