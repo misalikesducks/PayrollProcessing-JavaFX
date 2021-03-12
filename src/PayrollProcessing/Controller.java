@@ -131,6 +131,8 @@ public class Controller {
             double annualSalary = EMPTY;
             try{
                annualSalary = Double.parseDouble(salary.getText());
+               if(annualSalary <= 0)
+                  throw new Exception();
             }catch(Exception e){
                show1.appendText("Invalid salary.\n");
                return;
@@ -162,6 +164,8 @@ public class Controller {
             double partTimeRate = EMPTY;
             try{
                partTimeRate = Double.parseDouble(partRate.getText());
+               if(partTimeRate < 0)
+                  throw new Exception();
             }catch(Exception e){
                show1.appendText("Invalid hourly rate for parttime employee.\n");
                return;
@@ -191,6 +195,7 @@ public class Controller {
    void remove(ActionEvent event){
       Profile tempProfile = createProfile();
       Employee tempEmp = new Employee(tempProfile);
+
       try{
          if(tempProfile != null) {
             if(checkEmpty(database))
@@ -224,7 +229,15 @@ public class Controller {
                if(checkEmpty(database))
                   return;
                Employee tempEmp = new Parttime(tempProf,EMPTY, Integer.parseInt(hours.getText()));
-               database.setHours(tempEmp);
+               try{
+                  if(!database.setHours(tempEmp))
+                     throw new Exception();
+                  else
+                     show1.appendText("Set Hours Successfully. \n");
+               }catch (Exception e){
+                  show1.appendText("Employee does not exist\n");
+                  return;
+               }
             }
             return;
          }
@@ -243,9 +256,11 @@ public class Controller {
       Date tempDate = null;
       Profile tempProf = null;
       String name = empName.getText().trim().toUpperCase();
+      String specialCharacters = "!#$%&'()*+,-./:;<=>?@[]^_`{|}~0123456789";
+      String[] tempName = name.split("");
       try{
-         for(int i = 0; i < name.length(); i++){
-            if(Character.isDigit(name.charAt(i)))
+         for(int i = 0; i < tempName.length; i++){
+            if(specialCharacters.contains(tempName[i]))
                throw new Exception();
          }
       }catch(Exception e){
